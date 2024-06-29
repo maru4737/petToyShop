@@ -31,6 +31,13 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	// 스프링부트 3.0이상/java17 이상은 마이바티스 3.0 이상으로 설정해야 @Mapper사용가능
+	// - 참고용 블로그 : https://keeeeeepgoing.tistory.com/193
+	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+	// oracle 버전에 맞는 jdbc를 추가(JDK17 => ojdbc11)
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
 }
 
 tasks.named('test') {
