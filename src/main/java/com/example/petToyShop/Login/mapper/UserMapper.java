@@ -13,4 +13,6 @@ public interface UserMapper {
     void updateUser(User user);
 
     void deleteUser(int id);
+
+    User LoginStart(User user);
 }

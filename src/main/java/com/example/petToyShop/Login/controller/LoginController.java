@@ -23,14 +23,19 @@ public class LoginController {
 
     @GetMapping("/LoginPage")
     public String LoginPage() {
+        System.out.println("탐");
 
         return "Login";
     }
 
-    @GetMapping("/test")
-    public String testPage() {
+    @PostMapping("/LoginStart")
+    public String LoginStart(User user) {
+        System.out.println(user);
+        User LoginUserVo = userService.LoginStart(user);
+        System.out.println(LoginUserVo);
+        //System.out.println("Requested userId: " + userService.getUserById(user));
 
-        return "test";
+        return "index";
     }
 
 }

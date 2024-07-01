@@ -34,4 +34,11 @@ public class UserService {
     public void deleteUser(int id) {
         userMapper.deleteUser(id);
     }
+
+    @Transactional
+    public User LoginStart(User user) {
+        User loginUser = new User();
+        loginUser = userMapper.LoginStart(user);
+        return loginUser;
+    }
 }

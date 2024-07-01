@@ -6,6 +6,12 @@
             SELECT name FROM user_list WHERE id = #{id}
         </select>
 
+        <select id="LoginStart" parameterType="com.example.petToyShop.Login.vo.User" resultType="com.example.petToyShop.Login.vo.User">
+            SELECT * FROM user_list
+            WHERE id = #{id}
+            and pw = #{pw}
+        </select>
+
         <insert id="insertUser">
             INSERT INTO users(username, email) VALUES(#{name}, #{email})
         </insert>
