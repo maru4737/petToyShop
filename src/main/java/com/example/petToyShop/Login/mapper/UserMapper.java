@@ -8,11 +8,11 @@ public interface UserMapper {
 
     String getUserById(String id);
 
-    void insertUser(User user);
+    int SignUp(User user);
 
     void updateUser(User user);
 
     void deleteUser(int id);
 
-    User LoginStart(User user);
+    User Login(User user);
 }

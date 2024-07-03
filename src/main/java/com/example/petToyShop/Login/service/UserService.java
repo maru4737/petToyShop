@@ -13,16 +13,15 @@ public class UserService {
     private UserMapper userMapper;
 
     public User getUserById(String id) {
-        System.out.println("여기까진오나");
-        System.out.println(userMapper.getUserById(id));
         User user = new User();
 
         return user;
     }
 
     @Transactional
-    public void insertUser(User user) {
-        userMapper.insertUser(user);
+    public int SignUp(User user) {
+
+        return userMapper.SignUp(user);
     }
 
     @Transactional
@@ -36,9 +35,9 @@ public class UserService {
     }
 
     @Transactional
-    public User LoginStart(User user) {
+    public User Login(User user) {
         User loginUser = new User();
-        loginUser = userMapper.LoginStart(user);
+        loginUser = userMapper.Login(user);
         return loginUser;
     }
 }

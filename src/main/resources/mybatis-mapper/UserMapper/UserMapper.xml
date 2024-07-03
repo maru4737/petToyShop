@@ -6,14 +6,14 @@
             SELECT name FROM user_list WHERE id = #{id}
         </select>
 
-        <select id="LoginStart" parameterType="com.example.petToyShop.Login.vo.User" resultType="com.example.petToyShop.Login.vo.User">
+        <select id="Login" parameterType="com.example.petToyShop.Login.vo.User" resultType="com.example.petToyShop.Login.vo.User">
             SELECT * FROM user_list
             WHERE id = #{id}
             and pw = #{pw}
         </select>
 
-        <insert id="insertUser">
-            INSERT INTO users(username, email) VALUES(#{name}, #{email})
+        <insert id="SignUp" parameterType="com.example.petToyShop.Login.vo.User">
+            INSERT INTO user_list (seq_no, name, id, pw, tel, address, email) VALUES( 2,#{name}, #{id), #{pw), #{tel), #{address), #{email})
         </insert>
 
         <update id="updateUser">

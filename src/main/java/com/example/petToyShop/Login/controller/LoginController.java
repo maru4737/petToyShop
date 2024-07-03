@@ -1,6 +1,5 @@
 package com.example.petToyShop.Login.controller;
 
-import com.example.petToyShop.Login.mapper.UserMapper;
 import com.example.petToyShop.Login.service.UserService;
 import com.example.petToyShop.Login.vo.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,22 +25,35 @@ public class LoginController {
 
     @GetMapping("/LoginPage")
     public String LoginPage() {
-        System.out.println("탐");
 
-        return "Login";
+        return "/Login/Login";
     }
 
-    @PostMapping("/LoginStart")
-    public String LoginStart(HttpServletRequest request, HttpServletResponse response, User user, Model model) {
+    @PostMapping("/Login")
+    public String Login(HttpServletRequest request, HttpServletResponse response, User user, Model model) {
         System.out.println(user);
-        User LoginUserVo = userService.LoginStart(user);
+        User LoginUserVo = userService.Login(user);
         System.out.println(LoginUserVo);
 
         if(LoginUserVo.getId() != null){
-            HttpSession loginSess = request.getSession(false);
+            HttpSession loginSess = request.getSession(true);
             loginSess.setAttribute("user",LoginUserVo);
         }
         //System.out.println("Requested userId: " + userService.getUserById(user));
+
+        return "index";
+    }
+
+    @GetMapping("/SignUpPage")
+    public String SignUpPage() {
+
+        return "/Login/SignUp";
+    }
+
+    @PostMapping("/SignUp")
+    public String SignUp(HttpServletRequest request, HttpServletResponse response, User user, Model model) {
+
+        int result = userService.SignUp(user);
 
         return "index";
     }
