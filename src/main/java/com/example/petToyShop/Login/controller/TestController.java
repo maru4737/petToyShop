@@ -30,7 +30,7 @@ public class TestController {
     @GetMapping("/userId")
     public String testPage(String userId) {
         //System.out.println("Requested userId: " + userId);
-        System.out.println("Requested userId: " + userService.getUserById(userId));
+       // System.out.println("Requested userId: " + userService.getUserById(userId));
 
         return "test";
     }

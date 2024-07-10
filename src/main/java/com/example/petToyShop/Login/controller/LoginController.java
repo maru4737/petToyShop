@@ -53,7 +53,9 @@ public class LoginController {
     @PostMapping("/SignUp")
     public String SignUp(HttpServletRequest request, HttpServletResponse response, User user, Model model) {
 
-        int result = userService.SignUp(user);
+        int i = userService.SignUp(user);
+
+        System.out.println(i);
 
         return "index";
     }

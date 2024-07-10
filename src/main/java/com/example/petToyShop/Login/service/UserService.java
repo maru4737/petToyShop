@@ -12,26 +12,10 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public User getUserById(String id) {
-        User user = new User();
-
-        return user;
-    }
-
     @Transactional
     public int SignUp(User user) {
 
         return userMapper.SignUp(user);
-    }
-
-    @Transactional
-    public void updateUser(User user) {
-        userMapper.updateUser(user);
-    }
-
-    @Transactional
-    public void deleteUser(int id) {
-        userMapper.deleteUser(id);
     }
 
     @Transactional
