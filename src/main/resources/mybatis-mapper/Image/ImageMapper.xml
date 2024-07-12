@@ -5,7 +5,7 @@
 
     <insert id="uploadImage" parameterType="com.example.petToyShop.image.vo.Image">
         INSERT INTO image (id, title, description, name, file_path)
-        VALUES (image_seq.NEXTVAL, #{title}, #{description}, #{name}, #{file_path});
+        VALUES (image_seq.NEXTVAL, #{title}, #{description}, #{name}, #{file_path})
     </insert>
 
 </mapper>
