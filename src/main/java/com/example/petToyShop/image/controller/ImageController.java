@@ -2,6 +2,7 @@ package com.example.petToyShop.image.controller;
 
 import com.example.petToyShop.image.vo.Image;
 import com.example.petToyShop.image.service.ImageService;
+import com.example.petToyShop.image.vo.ImageResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +36,23 @@ public class ImageController {
 
     // 이미지 저장
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file,
-                                              @RequestParam("info") String infoJson) {
+    public ResponseEntity<ImageResponse> uploadImage(@RequestPart("metadata") String metadata,
+                                                     @RequestPart("filePart") MultipartFile filePart) {
+
         try {
             // JSON 데이터 파싱
             ObjectMapper objectMapper = new ObjectMapper();
-            Image imageInfo = objectMapper.readValue(infoJson, Image.class);
-
+            metadata = metadata.replaceAll("\\\\", "");
+            if (metadata.startsWith("\"") && metadata.endsWith("\"")) {
+                metadata = metadata.substring(1, metadata.length() - 1);
+            }
+            System.out.println(metadata);
+            Image imageInfo = objectMapper.readValue(metadata, Image.class);
+            System.out.println("들어온다2");
             String fileTitle = imageInfo.getTitle();
+            System.out.println(fileTitle);
             String fileDescription = imageInfo.getDescription();
+            System.out.println(fileDescription);
 
             Path uploadPath = Paths.get(imageDir);
 
@@ -53,12 +62,12 @@ public class ImageController {
             }
 
             // 파일 이름 설정 (안전하게 처리)
-            String fileName = generateFileName(file);
-            String filePath = imageDir + "/" + fileName;
+            String fileName = generateFileName(filePart);
+            String filePath = imageDir + "/" + fileName + ".png";
             Path path = Paths.get(filePath);
 
             // 파일 저장
-            Files.write(path, file.getBytes());
+            Files.write(path, filePart.getBytes());
 
             Image image = new Image();
             image.setName(fileName);
@@ -67,9 +76,13 @@ public class ImageController {
             image.setFile_path(filePath);
             imageService.uploadImage(image);
 
-            return ResponseEntity.status(HttpStatus.OK).body("Image uploaded successfully: " + file.getOriginalFilename());
+            ImageResponse imageResponse = new ImageResponse();
+
+            imageResponse.setMessage("잘됐다");
+            return ResponseEntity.status(HttpStatus.OK).body(imageResponse);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to upload image", e);
+
         }
     }
 
