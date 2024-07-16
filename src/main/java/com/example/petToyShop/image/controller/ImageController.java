@@ -114,8 +114,9 @@ public class ImageController {
         }
     }
 
-    @GetMapping("/download-all")
+    @GetMapping("/selectAllImage")
     public void downloadAllImages(HttpServletResponse response) throws IOException {
+        System.out.println("이녀석도 들어온다");
         // 압축 파일 이름 설정
         String zipFileName = "all-images.zip";
         response.setContentType("application/zip");
